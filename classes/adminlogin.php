@@ -22,7 +22,7 @@ class adminLogin
         $adminPass = $this->fm->validation($adminPass);
 
         $adminUser = mysqli_real_escape_string($this->db->link, $adminUser);
-        $adminPass = md5(mysqli_real_escape_string($this->db->link, $adminPass));
+        $adminPass = mysqli_real_escape_string($this->db->link, $adminPass);
 
         if(empty($adminUser) || empty($adminPass)) {
             $alert = "User and Password must be not empty!";
@@ -37,7 +37,7 @@ class adminLogin
                 Session::set('adminId', $value['adminID']);
                 Session::set('adminUser', $value['adminUser']);
                 Session::set('adminName', $value['adminName']);
-                // header('Location:index.php');
+                header('Location:index.php');
             } else { //Sai tai khoan hoac mat khau
                 $alert = "User and Password not match";
                 return $alert;
