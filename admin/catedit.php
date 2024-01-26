@@ -19,8 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <h2>Sửa danh mục sản phẩm</h2>
         <div class="block copyblock">
             <?php
-            if (isset($insertCat)) {
-                echo $insertCat;
+            if (isset($updateCat)) {
+                echo $updateCat;
             }
             ?>
             <?php
@@ -30,11 +30,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             ?>
                     <form action="" method="POST">
                         <table class="form">
-                            <?php
-                            if (isset($updateCat)) {
-                                echo $updateCat;
-                            }
-                            ?>
                             <tr>
                                 <td>
                                     <input type="text" value="<?php echo $result['catName'] ?>" name="catName" placeholder="Sửa danh mục sản phẩm..." class="medium" />
