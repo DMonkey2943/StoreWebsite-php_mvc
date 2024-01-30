@@ -136,13 +136,36 @@ class product
         
     }
 
-
     public function getproductbyId($id)
     {
         $query = "SELECT * FROM tbl_product WHERE productID='$id'";
         $result = $this->db->select($query);
         return $result;
     }
+    // END BACK-END
+
+    // START FRONT-END
+    public function getproduct_feature() {
+        $query = "SELECT * FROM tbl_product WHERE type='1'";
+        $result = $this->db->select($query);
+        return $result;
+    }
+
+    public function getproduct_new() {
+        $query = "SELECT * FROM tbl_product ORDER BY productID DESC LIMIT 4";
+        $result = $this->db->select($query);
+        return $result;
+    }
+
+    public function get_details($id) {
+        $query = "SELECT tbl_product.*, tbl_category.catName, tbl_brand.brandName 
+            FROM tbl_product INNER JOIN tbl_category ON tbl_product.catID = tbl_category.catID
+            INNER JOIN tbl_brand ON tbl_product.brandID = tbl_brand.brandID
+            WHERE tbl_product.productID = '$id' LIMIT 1" ;
+        $result = $this->db->select($query);
+        return $result;
+    }
+
 }
 ?>
 
