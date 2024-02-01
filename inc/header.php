@@ -1,27 +1,27 @@
 <?php
-    include 'lib/session.php';
-    Session::init();
+include 'lib/session.php';
+Session::init();
 ?>
 
 <?php
-	include_once 'lib/database.php';
-	include_once 'helpers/format.php';
-	spl_autoload_register(function($className){
-		include_once "classes/".$className.".php";
-	});
-	$db = new Database();
-	$fm = new Format();
-	$cart = new cart();
-	$us = new user();
-	$cat = new category();
-	$product = new product();
+include_once 'lib/database.php';
+include_once 'helpers/format.php';
+spl_autoload_register(function ($className) {
+	include_once "classes/" . $className . ".php";
+});
+$db = new Database();
+$fm = new Format();
+$cart = new cart();
+$us = new user();
+$cat = new category();
+$product = new product();
 ?>
 
 <?php
-  header("Cache-Control: no-cache, must-revalidate");
-  header("Pragma: no-cache"); 
-  header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); 
-  header("Cache-Control: max-age=2592000");
+header("Cache-Control: no-cache, must-revalidate");
+header("Pragma: no-cache");
+header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
+header("Cache-Control: max-age=2592000");
 ?>
 <!DOCTYPE HTML>
 
@@ -41,10 +41,25 @@
 	<link href='http://fonts.googleapis.com/css?family=Monda' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Doppio+One' rel='stylesheet' type='text/css'>
 	<script type="text/javascript">
-		$(document).ready(function ($) {
-			$('#dc_mega-menu-orange').dcMegaMenu({ rowItems: '4', speed: 'fast', effect: 'fade' });
+		$(document).ready(function($) {
+			$('#dc_mega-menu-orange').dcMegaMenu({
+				rowItems: '4',
+				speed: 'fast',
+				effect: 'fade'
+			});
 		});
 	</script>
+	<style>
+		.success {
+			color: green;
+			font-size: 18px;
+		}
+
+		.error {
+			color: red;
+			font-size: 18px;
+		}
+	</style>
 </head>
 
 <body>
@@ -56,9 +71,7 @@
 			<div class="header_top_right">
 				<div class="search_box">
 					<form>
-						<input type="text" value="Search for Products" onfocus="this.value = '';"
-							onblur="if (this.value == '') {this.value = 'Search for Products';}"><input type="submit"
-							value="SEARCH">
+						<input type="text" value="Search for Products" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search for Products';}"><input type="submit" value="SEARCH">
 					</form>
 				</div>
 				<div class="shopping_cart">

@@ -69,6 +69,24 @@ class cart
         return $result;
     }
 
+    public function update_quantity_cart($quantity, $cartID) {
+        $quantity = mysqli_real_escape_string($this->db->link, $quantity);
+        $cartID = mysqli_real_escape_string($this->db->link, $cartID);
+
+        $query = "UPDATE tbl_cart SET quantity='$quantity' WHERE cartID = '$cartID'";
+        $result = $this->db->update($query);
+        if($result) {
+            $msg = "<span class='success'>Product quantity updated successfully</span>";
+            return $msg;
+        } else {
+            $msg = "<span class='error'>Product quantity updated not successfully</span>";
+            return $msg;
+        }
+
+
+    }
+
+
 
 }
 ?>

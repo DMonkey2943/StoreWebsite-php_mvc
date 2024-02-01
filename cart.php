@@ -2,11 +2,24 @@
 include 'inc/header.php';
 ?>
 
+<?php
+if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
+	$cartID = $_POST['cartID'];
+    $quantity = $_POST['quantity'];
+	$update_quantity_cart = $cart->update_quantity_cart($quantity, $cartID);
+}
+?>
+
 <div class="main">
 	<div class="content">
 		<div class="cartoption">
 			<div class="cartpage">
 				<h2>Your Cart</h2>
+				<?php
+				if(isset($update_quantity_cart)) {
+					echo $update_quantity_cart;
+				}
+				?>
 				<table class="tblone">
 					<tr>
 						<th width="20%">Product Name</th>
@@ -28,7 +41,8 @@ include 'inc/header.php';
 						<td><?php echo number_format($result['price']).'VNĐ' ?></td>
 						<td>
 							<form action="" method="post">
-								<input type="number" name="" value="<?php echo $result['quantity'] ?>" min="0" />
+								<input type="hidden" name="cartID" value="<?php echo $result['cartID'] ?>" min="0" />
+								<input type="number" name="quantity" value="<?php echo $result['quantity'] ?>" min="0" />
 								<input type="submit" name="submit" value="Update" />
 							</form>
 						</td>
