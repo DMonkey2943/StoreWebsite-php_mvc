@@ -3,10 +3,23 @@ include 'inc/header.php';
 ?>
 
 <?php
+if (isset($_GET['cartID']) ) {
+	$cartID = $_GET['cartID'];
+	$delcart = $cart->del_product_cart($cartID);
+}
+
 if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
 	$cartID = $_POST['cartID'];
     $quantity = $_POST['quantity'];
 	$update_quantity_cart = $cart->update_quantity_cart($quantity, $cartID);
+	if($quantity == 0) {
+		$delcart = $cart->del_product_cart($cartID);
+	}
+}
+?>
+<?php
+if(!isset($_GET['id'])) {
+	echo "<meta http-equiv='refresh' content='0; URL=?id=live'>";
 }
 ?>
 
@@ -18,6 +31,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
 				<?php
 				if(isset($update_quantity_cart)) {
 					echo $update_quantity_cart;
+				}
+				?>
+				<?php
+				if(isset($delcart)) {
+					echo $delcart;
 				}
 				?>
 				<table class="tblone">
@@ -33,6 +51,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
 					$get_pd_cart = $cart->get_product_cart();
 					if($get_pd_cart){
 						$subTotal = 0;
+						$qty = 0;
 						while($result = $get_pd_cart->fetch_assoc()) {
 					?>
 					<tr>
@@ -52,19 +71,28 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
 							echo number_format($total).'VNĐ' 
 							?>
 						</td>
-						<td><a href="">X</a></td>
+						<td><a href="?cartID=<?php echo $result['cartID'] ?>">Xóa</a></td>
 					</tr>
 					<?php
 						$subTotal += $total;
-						}
+						$qty += $result['quantity'];
+					}
 					}
 					?>
 					
 				</table>
+				<?php
+				$check_cart = $cart->check_cart();
+				if($check_cart) {
+				?>
 				<table style="float:right;text-align:left;" width="40%">
 					<tr>
 						<th>Sub Total : </th>
-						<td><?php echo number_format($subTotal).'VNĐ'?></td>
+						<td><?php 
+							echo number_format($subTotal).'VNĐ';
+							Session::set('sum', $subTotal);
+							Session::set('qty', $qty);
+						?></td>
 					</tr>
 					<tr>
 						<th>VAT (10%): </th>
@@ -78,6 +106,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
 						<td><?php echo number_format($subTotal + $vat).'VNĐ' ?></td>
 					</tr>
 				</table>
+				<?php
+				} else {
+					echo 'Your cart is empty! Please shopping now';
+				}
+				?>
 			</div>
 			<div class="shopping">
 				<div class="shopleft">

@@ -76,14 +76,30 @@ class cart
         $query = "UPDATE tbl_cart SET quantity='$quantity' WHERE cartID = '$cartID'";
         $result = $this->db->update($query);
         if($result) {
-            $msg = "<span class='success'>Product quantity updated successfully</span>";
-            return $msg;
+            header('Location: cart.php');
         } else {
             $msg = "<span class='error'>Product quantity updated not successfully</span>";
             return $msg;
         }
+    }
 
+    public function del_product_cart($cartID) {
+        $cartID = mysqli_real_escape_string($this->db->link, $cartID);
+        $query = "DELETE FROM tbl_cart WHERE cartID='$cartID'";
+        $result = $this->db->delete($query);
+        if($result) {
+            header('Location: cart.php');
+        } else {
+            $msg = "<span class='error'>Product deleted not successfully</span>";
+            return $msg;
+        }
+    }
 
+    public function check_cart() {
+        $s_ID = session_id();
+        $query = "SELECT * FROM tbl_cart WHERE sessionID='$s_ID'";
+        $result = $this->db->select($query);
+        return $result;
     }
 
 
