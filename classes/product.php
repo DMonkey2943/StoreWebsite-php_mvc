@@ -166,6 +166,28 @@ class product
         return $result;
     }
 
+    public function getLatest_Dell() {
+        $query = "SELECT * FROM tbl_product WHERE brandID='4' ORDER BY productID DESC LIMIT 1";
+        $result = $this->db->select($query);
+        return $result;
+    }
+    public function getLatest_Samsung() {
+        $query = "SELECT * FROM tbl_product WHERE brandID='2' ORDER BY productID DESC LIMIT 1";
+        $result = $this->db->select($query);
+        return $result;
+    }
+    public function getLatest_Apple() {
+        $query = "SELECT * FROM tbl_product WHERE brandID='6' ORDER BY productID DESC LIMIT 1";
+        $result = $this->db->select($query);
+        return $result;
+    }
+    public function getLatest_Canon() {
+        $query = "SELECT * FROM tbl_product WHERE brandID='3' ORDER BY productID DESC LIMIT 1";
+        $result = $this->db->select($query);
+        return $result;
+    }
+
+
 }
 ?>
 
