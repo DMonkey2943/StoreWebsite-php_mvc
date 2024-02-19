@@ -9,12 +9,14 @@ include_once 'helpers/format.php';
 spl_autoload_register(function ($className) {
 	include_once "classes/" . $className . ".php";
 });
+
 $db = new Database();
 $fm = new Format();
 $cart = new cart();
 $us = new user();
 $cat = new category();
 $product = new product();
+$cs = new customer();
 ?>
 
 <?php

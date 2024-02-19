@@ -2475,3 +2475,17 @@ p.terms {
 		padding:4%;
 	}
 }
+
+input.grey {
+    font-size: 15px;
+    color: white;
+    background: #3f4040;
+    font-weight: 600;
+	padding: 10px 15px;
+	border-radius: 4px;
+}
+input.grey:hover {
+	background : #525252;
+	cursor: pointer;
+}
+
