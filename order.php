@@ -2,6 +2,13 @@
 include 'inc/header.php';
 // include 'inc/slider.php';
 ?>
+
+<?php
+$login_check = Session::get('customer_login');
+if ($login_check==false) { //Ng dung da dang nhap
+	header('Location: login.php');
+}
+?>
 <style>
     .order_page {
         font-size: 48px;

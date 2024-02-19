@@ -96,7 +96,23 @@ header("Cache-Control: max-age=2592000");
 						</a>
 					</div>
 				</div>
-				<div class="login"><a href="login.php">Login</a></div>
+
+				<?php
+				if(isset($_GET['customerID'])) {
+					Session::destroy();
+				}
+				?>
+				<div class="login">
+					<?php
+					$login_check = Session::get('customer_login');
+					if($login_check==false) { //Ng dung chua dang nhap
+						echo '<a href="login.php">Login</a>';
+					} else {
+						echo '<a href="?customerID='.Session::get('customer_id').'">Logout</a>';
+					}
+					?>				
+					
+				</div>
 				<div class="clear"></div>
 			</div>
 			<div class="clear"></div>

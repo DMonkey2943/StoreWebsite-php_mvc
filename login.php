@@ -2,14 +2,21 @@
 include 'inc/header.php';
 // include 'inc/slider.php';
 ?>
+
 <?php
-if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
-    $insertCustomer = $cs->insert_customer($_POST);
+$login_check = Session::get('customer_login');
+if ($login_check) { //Ng dung da dang nhap
+	header('Location: order.php');
 }
 ?>
 <?php
-if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
-    $loginCustomer = $cs->login_customer($_POST);
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
+	$insertCustomer = $cs->insert_customer($_POST);
+}
+?>
+<?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
+	$loginCustomer = $cs->login_customer($_POST);
 }
 ?>
 
@@ -19,7 +26,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
 			<h3>Existing Customers</h3>
 			<p>Sign in with the form below.</p>
 			<?php
-			if(isset($loginCustomer)) {
+			if (isset($loginCustomer)) {
 				echo $loginCustomer;
 			}
 			?>
@@ -32,14 +39,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
 				</div>
 			</form>
 		</div>
-		
+
 		<?php
-		
+
 		?>
 		<div class="register_account">
 			<h3>Register New Account</h3>
 			<?php
-			if(isset($insertCustomer)) {
+			if (isset($insertCustomer)) {
 				echo $insertCustomer;
 			}
 			?>
