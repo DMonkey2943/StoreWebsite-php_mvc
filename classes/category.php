@@ -80,10 +80,30 @@ class category
         
     }
 
-
     public function getcatbyId($id)
     {
         $query = "SELECT * FROM tbl_category WHERE catID='$id'";
+        $result = $this->db->select($query);
+        return $result;
+    }
+
+
+    public function show_category_frontEnd()
+    {
+        $query = "SELECT * FROM tbl_category ORDER BY catID DESC";
+        $result = $this->db->select($query);
+        return $result;
+    }
+
+    public function get_name_by_cat($id) {
+        $query = "SELECT tbl_product.*,tbl_category.catName,tbl_category.catID FROM tbl_product,tbl_category 
+            WHERE tbl_product.catID=tbl_category.catID AND tbl_product.catID='$id' LIMIT 1";
+        $result = $this->db->select($query);
+        return $result;
+    }
+
+    public function get_product_by_cat($id) {
+        $query = "SELECT * FROM tbl_product WHERE catID='$id'  ORDER BY catID DESC LIMIT 8";
         $result = $this->db->select($query);
         return $result;
     }

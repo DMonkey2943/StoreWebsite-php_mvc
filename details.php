@@ -61,12 +61,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
 				<h2>CATEGORIES</h2>
 				<ul>
 					<?php
-					$get_category_list = $cat->show_category();
+					$get_category_list = $cat->show_category_frontEnd();
 					if($get_category_list) {
 						while($result_cat_list = $get_category_list->fetch_assoc()) {
 					?>
 					<li>
-						<a href="productbycat.php"><?php echo $result_cat_list['catName'] ?></a>
+						<a href="productbycat.php?catID=<?php echo $result_cat_list['catID'] ?>"><?php echo $result_cat_list['catName'] ?></a>
 					</li>
 					<?php
 						}
