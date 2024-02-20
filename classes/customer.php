@@ -74,5 +74,14 @@ class customer
             }
         }
     }
+
+    public function show_customer($id) {
+        $query = "SELECT * FROM tbl_customer WHERE id='$id'";
+        $result = $this->db->select($query);
+        return $result;
+    }
+
+
+
 }
 ?>
