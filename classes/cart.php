@@ -30,10 +30,10 @@ class cart
         $pdName = $result_pd['productName'];
         $price = $result_pd['price'];
         $image = $result_pd['image'];
-        
+
         $query_check_cart = "SELECT * FROM tbl_cart WHERE productID = '$ID' AND sessionID = '$s_ID'";
         $check_cart = $this->db->select($query_check_cart);
-        if(mysqli_num_rows($check_cart) > 0) {
+        if (mysqli_num_rows($check_cart) > 0) {
             $result_check = $check_cart->fetch_assoc();
             $quantity_update = $result_check['quantity'] + $quantity;
             $query_update_quantity = "UPDATE tbl_cart SET quantity='$quantity_update' WHERE productID = '$ID' AND sessionID = '$s_ID'";
@@ -43,7 +43,7 @@ class cart
             } else {
                 header('Location: 404.php');
             }
-        } 
+        }
         // if(mysqli_num_rows($check_cart)>0){
         //     $alert = "<span style='color:red; font-size: 18px;'>Product already added</span>";
         //     return $alert;
@@ -58,24 +58,24 @@ class cart
                 header('Location: 404.php');
             }
         }
-
-        
     }
 
-    public function get_product_cart() {
+    public function get_product_cart()
+    {
         $s_ID = session_id();
         $query = "SELECT * FROM tbl_cart WHERE sessionID='$s_ID'";
         $result = $this->db->select($query);
         return $result;
     }
 
-    public function update_quantity_cart($quantity, $cartID) {
+    public function update_quantity_cart($quantity, $cartID)
+    {
         $quantity = mysqli_real_escape_string($this->db->link, $quantity);
         $cartID = mysqli_real_escape_string($this->db->link, $cartID);
 
         $query = "UPDATE tbl_cart SET quantity='$quantity' WHERE cartID = '$cartID'";
         $result = $this->db->update($query);
-        if($result) {
+        if ($result) {
             header('Location: cart.php');
         } else {
             $msg = "<span class='error'>Product quantity updated not successfully</span>";
@@ -83,11 +83,12 @@ class cart
         }
     }
 
-    public function del_product_cart($cartID) {
+    public function del_product_cart($cartID)
+    {
         $cartID = mysqli_real_escape_string($this->db->link, $cartID);
         $query = "DELETE FROM tbl_cart WHERE cartID='$cartID'";
         $result = $this->db->delete($query);
-        if($result) {
+        if ($result) {
             header('Location: cart.php');
         } else {
             $msg = "<span class='error'>Product deleted not successfully</span>";
@@ -95,19 +96,48 @@ class cart
         }
     }
 
-    public function check_cart() {
+    public function check_cart()
+    {
         $s_ID = session_id();
         $query = "SELECT * FROM tbl_cart WHERE sessionID='$s_ID'";
         $result = $this->db->select($query);
         return $result;
     }
 
-    public function del_all_data_cart() {
+    public function del_all_data_cart()
+    {
         $s_ID = session_id();
         $query = "DELETE FROM tbl_cart WHERE sessionID='$s_ID'";
         $result = $this->db->delete($query);
         return $result;
+    }
 
+    public function insert_order($customerID)
+    {
+        $s_ID = session_id();
+        $query = "SELECT * FROM tbl_cart WHERE sessionID='$s_ID'";
+        $get_product = $this->db->select($query);
+        if ($get_product) {
+            while ($result = $get_product->fetch_assoc()) {
+                $productID = $result['productID'];
+                $productName = $result['productName'];
+                $quantity = $result['quantity'];
+                $price = $result['price']*$quantity;
+                $image = $result['image'];
+                $customerID = $customerID;
+
+                $query_order = "INSERT INTO tbl_order(customerID,productID,productName,price,quantity,image) 
+                VALUES('$customerID', '$productID', '$productName', '$price','$quantity', '$image')";
+                $insertOrder = $this->db->insert($query_order);
+                
+            }
+        }
+    }
+
+    public function get_amount_price($customerID) {
+        $query = "SELECT price FROM tbl_order WHERE customerID='$customerID'";
+        $get_price = $this->db->select($query);
+        return $get_price;
     }
 
 
