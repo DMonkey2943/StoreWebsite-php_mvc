@@ -75,6 +75,11 @@ if ($login_check == false) {
                     <td>:</td>
                     <td><?php echo $result['zipcode'] ?></td>
                 </tr>
+                <tr>
+                    <td colspan="3">
+                        <a href="editprofile.php">Update Profile</a>
+                    </td>
+                </tr>
                 <?php
                     }
                 }

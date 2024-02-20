@@ -27,8 +27,10 @@ class customer
         $phone = mysqli_real_escape_string($this->db->link, $data['phone']);
         $password = mysqli_real_escape_string($this->db->link, md5($data['password']));
 
-        if ($name == '' || $city == '' || $zipcode == '' || $email == ''
-            || $address == '' || $country == '' || $phone == '' || $password == '') {
+        if (
+            $name == '' || $city == '' || $zipcode == '' || $email == ''
+            || $address == '' || $country == '' || $phone == '' || $password == ''
+        ) {
             $alert = "<span class='error'>Fields must be not empty</span>";
             return $alert;
         } else {
@@ -52,10 +54,11 @@ class customer
         }
     }
 
-    public function login_customer($data) {
+    public function login_customer($data)
+    {
         $email = mysqli_real_escape_string($this->db->link, $data['email']);
         $password = mysqli_real_escape_string($this->db->link, md5($data['password']));
-        
+
         if ($email == '' || $password == '') {
             $alert = "<span class='error'>Email and Password must be not empty</span>";
             return $alert;
@@ -75,13 +78,38 @@ class customer
         }
     }
 
-    public function show_customer($id) {
+    public function show_customer($id)
+    {
         $query = "SELECT * FROM tbl_customer WHERE id='$id'";
         $result = $this->db->select($query);
         return $result;
     }
 
+    public function update_customer($data, $id)
+    {
+        $name = mysqli_real_escape_string($this->db->link, $data['name']);
+        $zipcode = mysqli_real_escape_string($this->db->link, $data['zipcode']);
+        $email = mysqli_real_escape_string($this->db->link, $data['email']);
+        // $city = mysqli_real_escape_string($this->db->link, $data['city']);
+        $address = mysqli_real_escape_string($this->db->link, $data['address']);
+        $phone = mysqli_real_escape_string($this->db->link, $data['phone']);
 
-
+        if ( $name == '' || $zipcode == '' || $email == ''
+            || $address == '' || $phone == '') {
+            $alert = "<span class='error'>Fields must be not empty</span>";
+            return $alert;
+        } else {
+            $query = "UPDATE tbl_customer SET name='$name',zipcode='$zipcode',email='$email',address='$address',phone='$phone' 
+                WHERE id='$id'";
+            $result = $this->db->update($query);
+            if ($result) {
+                $alert = "<span class='success'>Customer Updated Successfully</span>";
+                return $alert;
+            } else {
+                $alert = "<span class='error'>Customer Updated Not Success</span>";
+                return $alert;
+            }
+        }
+    }
 }
 ?>
