@@ -102,6 +102,13 @@ class cart
         return $result;
     }
 
+    public function del_all_data_cart() {
+        $s_ID = session_id();
+        $query = "DELETE FROM tbl_cart WHERE sessionID='$s_ID'";
+        $result = $this->db->delete($query);
+        return $result;
+
+    }
 
 
 }

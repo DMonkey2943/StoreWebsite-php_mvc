@@ -99,6 +99,7 @@ header("Cache-Control: max-age=2592000");
 
 				<?php
 				if(isset($_GET['customerID'])) {
+					$delCart = $cart->del_all_data_cart();
 					Session::destroy();
 				}
 				?>
