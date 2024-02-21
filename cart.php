@@ -71,7 +71,7 @@ if(!isset($_GET['id'])) {
 							echo number_format($total).'VNĐ' 
 							?>
 						</td>
-						<td><a href="?cartID=<?php echo $result['cartID'] ?>">Xóa</a></td>
+						<td><a onclick="return confirm('Are you want to delete?');"  href="?cartID=<?php echo $result['cartID'] ?>">Xóa</a></td>
 					</tr>
 					<?php
 						$subTotal += $total;

@@ -140,6 +140,25 @@ class cart
         return $get_price;
     }
 
+    public function check_order($customerID) {
+        $query = "SELECT * FROM tbl_order WHERE customerID='$customerID'";
+        $result = $this->db->select($query);
+        return $result;
+    }
+
+    public function get_cart_ordered($customerID) {
+        $query = "SELECT * FROM tbl_order WHERE customerID='$customerID'";
+        $get_ordered = $this->db->select($query);
+        return $get_ordered;
+    }
+
+    public function get_inbox_cart() {
+        $query = "SELECT * FROM tbl_order ORDER BY dateOrder";
+        $get_inbox_cart = $this->db->select($query);
+        return $get_inbox_cart;
+
+    }
+
 
 }
 ?>
